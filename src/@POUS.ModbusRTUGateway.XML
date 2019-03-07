@@ -1,6 +1,6 @@
 <project xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.kw-software.com/xml/PLCopen/TC6_XML_V10_KW.xsd">
 	<fileHeader companyName="Phoenix Contact" companyURL="https://www.phoenixcontact-software.com" productName="PC WORX" productVersion="6.30" productRelease="Build 500" creationDateTime="2019-03-06T20:07:34" contentDescription="###XMLINFO=2;1;"/>
-	<contentHeader name="examples-mb-rtu-gateway" version="1551900230" modificationDateTime="2019-03-06T22:23:50" connectionCheck="true">
+	<contentHeader name="examples-mb-rtu-gateway" version="1551964462" modificationDateTime="2019-03-07T16:14:22" connectionCheck="true">
 		<coordinateInfo>
 			<pageSize x="999" y="9999"/>
 			<fbd>
@@ -17,7 +17,7 @@
 	<types>
 		<dataTypes/>
 		<pous>
-			<pou name="ModbusRTUGateway" pouType="functionBlock" lastChange="2019-03-06T22:18:02">
+			<pou name="ModbusRTUGateway" pouType="functionBlock" lastChange="2019-03-07T16:14:22">
 				<interface>
 					<inputVars retain="false">
 						<variable name="xActivate" group="Inputs">
@@ -52,6 +52,11 @@
 								<INT/>
 							</type>
 						</variable>
+						<variable name="R_TRIG_USEND_DONE" group="Inputs">
+							<type>
+								<derived name="R_TRIG"/>
+							</type>
+						</variable>
 						<variable name="IP_CONNECT" group="FB">
 							<type>
 								<derived name="IP_CONNECT"/>
@@ -72,27 +77,22 @@
 								<derived name="RS"/>
 							</type>
 						</variable>
-						<variable name="R_TRIG_NDR" group="FB">
-							<type>
-								<derived name="R_TRIG"/>
-							</type>
-						</variable>
 						<variable name="iConnectionId" group="Internal">
 							<type>
 								<INT/>
 							</type>
 						</variable>
-						<variable name="xSend" group="Internal">
+						<variable name="xTcpSend" group="Internal">
 							<type>
 								<BOOL/>
 							</type>
 						</variable>
-						<variable name="xNDR" group="Internal">
+						<variable name="xTcpNDR" group="Internal">
 							<type>
 								<BOOL/>
 							</type>
 						</variable>
-						<variable name="wTransactionID" group="Internal">
+						<variable name="wTcpTransactionID" group="Internal">
 							<type>
 								<WORD/>
 							</type>
@@ -174,18 +174,23 @@
 									<br/>
 									<br/>(* Блок URCV *)<br/>IP_URCV.EN_R			:= xValid;<br/>IP_URCV.ID				:= iConnectionId;<br/>IP_URCV.R_ID			:= '';<br/>IP_URCV.RD_1			:= bRcvBuf;<br/>
 									<br/>IP_URCV();<br/>
-									<br/>xNDR					:= IP_URCV.NDR;<br/>bRcvBuf					:= IP_URCV.RD_1;<br/>
+									<br/>xTcpNDR					:= IP_URCV.NDR;<br/>bRcvBuf					:= IP_URCV.RD_1;<br/>
 									<br/>
-									<br/>(* RS триггер отправки *)<br/>RS_USEND.SET			:= xSend;<br/>RS_USEND.RESET1			:= IP_USEND.DONE OR IP_USEND.ERROR;<br/>RS_USEND();<br/>
+									<br/>(* RS триггер отправки *)<br/>RS_USEND.SET			:= xTcpSend;<br/>RS_USEND.RESET1			:= IP_USEND.DONE OR IP_USEND.ERROR;<br/>RS_USEND();<br/>
 									<br/>IF RS_USEND.Q1 THEN<br/>
-									<br/>	uiSndCount				:= uiSndCount + UINT#1;<br/>	xSend					:= FALSE;<br/>
+									<br/>	xTcpSend				:= FALSE;<br/>
+									<br/>END_IF;<br/>
+									<br/>
+									<br/>R_TRIG_USEND_DONE.CLK		:= IP_USEND.DONE;<br/>R_TRIG_USEND_DONE();<br/>
+									<br/>IF R_TRIG_USEND_DONE.Q THEN<br/>
+									<br/>	uiSndCount				:= uiSndCount + UINT#1;<br/>
 									<br/>END_IF;<br/>
 									<br/>(* Блок USEND *)<br/>IP_USEND.REQ			:= RS_USEND.Q1;<br/>IP_USEND.ID				:= iConnectionId;<br/>IP_USEND.R_ID			:= '';<br/>IP_USEND.SD_1			:= bSendBuf;<br/>
 									<br/>IP_USEND();<br/>
 									<br/>bSendBuf				:= IP_USEND.SD_1;<br/>
 									<br/>
-									<br/>(* Пришли новые данные Modbus TCP - заполняется структура udtMbData  *)<br/>IF xNDR THEN<br/>	uiRcvCount					:= uiRcvCount + UINT#1;<br/>
-									<br/>	wTransactionID.B0			:= bRcvBuf[2];<br/>	wTransactionID.B1			:= bRcvBuf[3];<br/>
+									<br/>(* Пришли новые данные Modbus TCP - заполняется структура udtMbData  *)<br/>IF xTcpNDR THEN<br/>	uiRcvCount					:= uiRcvCount + UINT#1;<br/>
+									<br/>	wTcpTransactionID.B0		:= bRcvBuf[2];<br/>	wTcpTransactionID.B1		:= bRcvBuf[3];<br/>
 									<br/>	udtMbData.xSendRequest		:= TRUE;<br/>	udtMbData.uiSlaveAddress	:= BYTE_TO_UINT(bRcvBuf[8]);<br/>	udtMbData.iFunctionCode		:= BYTE_TO_INT(bRcvBuf[9]);<br/>
 									<br/>	wStartAddress.B0			:= bRcvBuf[11];<br/>	wStartAddress.B1			:= bRcvBuf[10];<br/>	udtMbData.uiStartAddress	:= WORD_TO_UINT(wStartAddress);<br/>
 									<br/>	wSndDataCount.B0			:= bRcvBuf[13];<br/>	wSndDataCount.B1			:= bRcvBuf[12];<br/>	udtMbData.iSndDataCount		:= WORD_TO_INT(wSndDataCount);<br/>
@@ -198,8 +203,8 @@
 									<br/>(* Пришли данные из Modbus RTU - заполняется буфер передачи *)<br/>IF udtMbData.xNDR THEN<br/>
 									<br/>	DEBUG_iCounter1				:= DEBUG_iCounter1 + 1;<br/>
 									<br/>	udtMbData.xNDR				:= FALSE;<br/>	udtMbData.xBusy				:= FALSE;<br/>
-									<br/>	xSend						:= TRUE;<br/>
-									<br/>	(* Transaction ID *)<br/>	bSendBuf[2]					:= wTransactionID.B0;<br/>	bSendBuf[3]					:= wTransactionID.B1;<br/>
+									<br/>	xTcpSend					:= TRUE;<br/>
+									<br/>	(* Transaction ID *)<br/>	bSendBuf[2]					:= wTcpTransactionID.B0;<br/>	bSendBuf[3]					:= wTcpTransactionID.B1;<br/>
 									<br/>	(* Protocol ID *)<br/>	bSendBuf[4]					:= BYTE#0;<br/>	bSendBuf[5]					:= BYTE#0;<br/>
 									<br/>
 									<br/>	(* Unit ID *)<br/>	bSendBuf[8]					:= UINT_TO_BYTE(udtMbData.uiSlaveAddress);<br/>
@@ -210,16 +215,14 @@
 									<br/>	FOR iArrDataWordNo := 1 TO iMbByteCount / 2 DO<br/>
 									<br/>		bSendBuf[iSendBufByteNo]	:= udtMbData.arrData[iArrDataWordNo].B1;<br/>		iSendBufByteNo				:= iSendBufByteNo + 1;<br/>		bSendBuf[iSendBufByteNo]	:= udtMbData.arrData[iArrDataWordNo].B0;<br/>		iSendBufByteNo				:= iSendBufByteNo + 1;<br/>
 									<br/>	END_FOR;<br/>
-									<br/>	iSndDataLength				:= 11 + iMbByteCount;<br/>
+									<br/>	iSndDataLength				:= 9 + iMbByteCount;<br/>
 									<br/>
 									<br/>	wSndDataLength				:= INT_TO_WORD(iSndDataLength);	<br/>	bSendBuf[0]					:= wSndDataLength.B0;<br/>	bSendBuf[1]					:= wSndDataLength.B1;<br/>
 									<br/>
-									<br/>	(* Length *)<br/>	wSndAppDataLength			:= wSndDataLength - WORD#8;			(* Полезные данные за исключением заголовка *)<br/>	bSendBuf[6]					:= wSndAppDataLength.B1;<br/>	bSendBuf[7]					:= wSndAppDataLength.B0;<br/>
+									<br/>	(* Length *)<br/>	wSndAppDataLength			:= wSndDataLength - WORD#6;			(* Полезные данные за исключением заголовка *)<br/>	bSendBuf[6]					:= wSndAppDataLength.B1;<br/>	bSendBuf[7]					:= wSndAppDataLength.B0;<br/>
 									<br/>
 									<br/>
 									<br/>END_IF;<br/>
-									<br/>
-									<br/>(*  *)<br/>R_TRIG_NDR.CLK					:= udtMbData.xNDR;<br/>R_TRIG_NDR();<br/>
 								</p>
 							</html>
 						</worksheet>
