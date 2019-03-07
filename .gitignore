@@ -1,3 +1,4 @@
 *.mwt
 bin/examples-mb-rtu-gateway/
 bin/libraries/Modbus_RTU_1/Modbus_RTU_1/
+bin/libraries/pcworx_testkit_1/

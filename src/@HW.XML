@@ -1,6 +1,6 @@
 <project xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.kw-software.com/xml/PLCopen/TC6_XML_V10_KW.xsd">
 	<fileHeader companyName="Phoenix Contact" companyURL="https://www.phoenixcontact-software.com" productName="PC WORX" productVersion="6.30" productRelease="Build 500" creationDateTime="2019-03-06T17:02:51" contentDescription="###XMLINFO=2;1;"/>
-	<contentHeader name="examples-mb-rtu-gateway" version="1551900245" modificationDateTime="2019-03-06T22:24:05" connectionCheck="true">
+	<contentHeader name="examples-mb-rtu-gateway" version="1551945064" modificationDateTime="2019-03-07T10:51:04" connectionCheck="true">
 		<coordinateInfo>
 			<pageSize x="999" y="9999"/>
 			<fbd>

@@ -1,6 +1,6 @@
 <project xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.kw-software.com/xml/PLCopen/TC6_XML_V10_KW.xsd">
 	<fileHeader companyName="Phoenix Contact" companyURL="https://www.phoenixcontact-software.com" productName="PC WORX" productVersion="6.30" productRelease="Build 500" creationDateTime="2019-03-02T20:06:51" contentDescription="###XMLINFO=2;1;"/>
-	<contentHeader name="examples-mb-rtu-gateway" version="1551900230" modificationDateTime="2019-03-06T22:23:50" connectionCheck="true">
+	<contentHeader name="examples-mb-rtu-gateway" version="1551944990" modificationDateTime="2019-03-07T10:49:50" connectionCheck="true">
 		<coordinateInfo>
 			<pageSize x="999" y="9999"/>
 			<fbd>
@@ -17,7 +17,7 @@
 	<types>
 		<dataTypes/>
 		<pous>
-			<pou name="Main" pouType="program" lastChange="2019-03-06T22:19:10">
+			<pou name="Main" pouType="program" lastChange="2019-03-07T10:49:49">
 				<interface>
 					<localVars retain="false">
 						<variable name="MB_IL_UNI07_Master" group="Master">
@@ -40,7 +40,7 @@
 								<BOOL/>
 							</type>
 							<initialValue>
-								<simpleValue value="FALSE"/>
+								<simpleValue value="TRUE"/>
 							</initialValue>
 						</variable>
 						<variable name="xResetMaster" group="Master">
@@ -169,16 +169,6 @@
 								<derived name="MB2_RSUNI_ARR_B_1_14"/>
 							</type>
 						</variable>
-						<variable name="IL_UNI07_Slave" group="Mock">
-							<type>
-								<derived name="IL_UNI07"/>
-							</type>
-						</variable>
-						<variable name="IL_UNI07_Master" group="Mock">
-							<type>
-								<derived name="IL_UNI07"/>
-							</type>
-						</variable>
 						<variable name="udtRS485Line" group="Mock">
 							<type>
 								<derived name="udtRS485Frame"/>
@@ -187,6 +177,16 @@
 						<variable name="xDebug" group="Mock">
 							<type>
 								<BOOL/>
+							</type>
+						</variable>
+						<variable name="IB_IL_RS_UNI_07_Master" group="Mock">
+							<type>
+								<derived name="IL_UNI07"/>
+							</type>
+						</variable>
+						<variable name="IB_IL_RS_UNI_07_Slave" group="Mock">
+							<type>
+								<derived name="IL_UNI07"/>
 							</type>
 						</variable>
 					</localVars>
@@ -332,7 +332,7 @@
 								</outputVariables>
 							</block>
 							<block width="35" height="64" typeName="MB_IL_UNI07_Slave_2" instanceName="MB_IL_UNI07_Slave" localId="49">
-								<position x="83" y="176"/>
+								<position x="86" y="275"/>
 								<inputVariables>
 									<variable formalParameter="xActivate" dataType="BOOL" invertable="true" hideable="true">
 										<connectionPointIn>
@@ -593,8 +593,8 @@
 									</variable>
 								</outputVariables>
 							</block>
-							<block width="33" height="24" typeName="IL_UNI07" instanceName="IL_UNI07_Master" localId="74">
-								<position x="85" y="284"/>
+							<block width="33" height="24" typeName="IL_UNI07" instanceName="IB_IL_RS_UNI_07_Master" localId="74">
+								<position x="85" y="196"/>
 								<inputVariables>
 									<variable formalParameter="xConsoleLog" dataType="INT" invertable="true" hideable="true">
 										<connectionPointIn>
@@ -640,8 +640,8 @@
 								</inOutVariables>
 								<outputVariables/>
 							</block>
-							<block width="33" height="24" typeName="IL_UNI07" instanceName="IL_UNI07_Slave" localId="81">
-								<position x="85" y="311"/>
+							<block width="33" height="24" typeName="IL_UNI07" instanceName="IB_IL_RS_UNI_07_Slave" localId="81">
+								<position x="85" y="226"/>
 								<inputVariables>
 									<variable formalParameter="xConsoleLog" dataType="INT" invertable="true" hideable="true">
 										<connectionPointIn>
@@ -695,7 +695,7 @@
 								<expression>xActivateMaster</expression>
 							</inVariable>
 							<inVariable localId="83" width="15" height="2">
-								<position x="66" y="179"/>
+								<position x="69" y="278"/>
 								<connectionPointOut>
 									<relPosition x="15" y="1"/>
 								</connectionPointOut>
@@ -737,70 +737,70 @@
 								<expression>xResetMaster</expression>
 							</inVariable>
 							<inVariable localId="89" width="11" height="2">
-								<position x="70" y="183"/>
+								<position x="73" y="282"/>
 								<connectionPointOut>
 									<relPosition x="11" y="1"/>
 								</connectionPointOut>
 								<expression>BYTE#01</expression>
 							</inVariable>
 							<inVariable localId="90" width="13" height="2">
-								<position x="68" y="187"/>
+								<position x="71" y="286"/>
 								<connectionPointOut>
 									<relPosition x="13" y="1"/>
 								</connectionPointOut>
 								<expression>DINT#9600</expression>
 							</inVariable>
 							<inVariable localId="91" width="11" height="2">
-								<position x="70" y="191"/>
+								<position x="73" y="290"/>
 								<connectionPointOut>
 									<relPosition x="11" y="1"/>
 								</connectionPointOut>
 								<expression>WORD#4</expression>
 							</inVariable>
 							<inVariable localId="92" width="15" height="2">
-								<position x="66" y="203"/>
+								<position x="69" y="302"/>
 								<connectionPointOut>
 									<relPosition x="15" y="1"/>
 								</connectionPointOut>
 								<expression>uiSlaveAddress</expression>
 							</inVariable>
 							<inVariable localId="93" width="19" height="2">
-								<position x="62" y="215"/>
+								<position x="65" y="314"/>
 								<connectionPointOut>
 									<relPosition x="19" y="1"/>
 								</connectionPointOut>
 								<expression>udtHoldingRegisters</expression>
 							</inVariable>
 							<inVariable localId="94" width="17" height="2">
-								<position x="64" y="219"/>
+								<position x="67" y="318"/>
 								<connectionPointOut>
 									<relPosition x="17" y="1"/>
 								</connectionPointOut>
 								<expression>udtInputRegisters</expression>
 							</inVariable>
 							<inVariable localId="95" width="14" height="2">
-								<position x="67" y="223"/>
+								<position x="70" y="322"/>
 								<connectionPointOut>
 									<relPosition x="14" y="1"/>
 								</connectionPointOut>
 								<expression>udtOutputBits</expression>
 							</inVariable>
 							<inVariable localId="96" width="13" height="2">
-								<position x="68" y="227"/>
+								<position x="71" y="326"/>
 								<connectionPointOut>
 									<relPosition x="13" y="1"/>
 								</connectionPointOut>
 								<expression>udtInputBits</expression>
 							</inVariable>
 							<inVariable localId="97" width="20" height="2">
-								<position x="61" y="231"/>
+								<position x="64" y="330"/>
 								<connectionPointOut>
 									<relPosition x="20" y="1"/>
 								</connectionPointOut>
 								<expression>arrInputAddressSlave</expression>
 							</inVariable>
 							<inVariable localId="98" width="22" height="2">
-								<position x="59" y="235"/>
+								<position x="62" y="334"/>
 								<connectionPointOut>
 									<relPosition x="22" y="1"/>
 								</connectionPointOut>
@@ -828,56 +828,56 @@
 								<expression>arrOutputAddressMaster</expression>
 							</inVariable>
 							<inVariable localId="102" width="7" height="2">
-								<position x="76" y="291"/>
+								<position x="76" y="203"/>
 								<connectionPointOut>
 									<relPosition x="7" y="1"/>
 								</connectionPointOut>
 								<expression>'MAS'</expression>
 							</inVariable>
 							<inVariable localId="103" width="22" height="2">
-								<position x="61" y="303"/>
+								<position x="61" y="215"/>
 								<connectionPointOut>
 									<relPosition x="22" y="1"/>
 								</connectionPointOut>
 								<expression>arrInputAddressMaster</expression>
 							</inVariable>
 							<inVariable localId="104" width="23" height="2">
-								<position x="60" y="299"/>
+								<position x="60" y="211"/>
 								<connectionPointOut>
 									<relPosition x="23" y="1"/>
 								</connectionPointOut>
 								<expression>arrOutputAddressMaster</expression>
 							</inVariable>
 							<inVariable localId="105" width="14" height="2">
-								<position x="69" y="295"/>
+								<position x="69" y="207"/>
 								<connectionPointOut>
 									<relPosition x="14" y="1"/>
 								</connectionPointOut>
 								<expression>udtRS485Line</expression>
 							</inVariable>
 							<inVariable localId="106" width="7" height="2">
-								<position x="76" y="318"/>
+								<position x="76" y="233"/>
 								<connectionPointOut>
 									<relPosition x="7" y="1"/>
 								</connectionPointOut>
 								<expression>'SLV'</expression>
 							</inVariable>
 							<inVariable localId="107" width="20" height="2">
-								<position x="63" y="330"/>
+								<position x="63" y="245"/>
 								<connectionPointOut>
 									<relPosition x="20" y="1"/>
 								</connectionPointOut>
 								<expression>arrInputAddressSlave</expression>
 							</inVariable>
 							<inVariable localId="108" width="22" height="2">
-								<position x="61" y="326"/>
+								<position x="61" y="241"/>
 								<connectionPointOut>
 									<relPosition x="22" y="1"/>
 								</connectionPointOut>
 								<expression>arrOutputAddressSlave</expression>
 							</inVariable>
 							<inVariable localId="109" width="14" height="2">
-								<position x="69" y="322"/>
+								<position x="69" y="237"/>
 								<connectionPointOut>
 									<relPosition x="14" y="1"/>
 								</connectionPointOut>
@@ -947,21 +947,21 @@
 								<expression>t#200ms</expression>
 							</inVariable>
 							<inVariable localId="119" width="9" height="2">
-								<position x="74" y="287"/>
+								<position x="74" y="199"/>
 								<connectionPointOut>
 									<relPosition x="9" y="1"/>
 								</connectionPointOut>
 								<expression>xDebug</expression>
 							</inVariable>
 							<inVariable localId="120" width="9" height="2">
-								<position x="74" y="314"/>
+								<position x="74" y="229"/>
 								<connectionPointOut>
 									<relPosition x="9" y="1"/>
 								</connectionPointOut>
 								<expression>xDebug</expression>
 							</inVariable>
 							<outVariable localId="121" width="19" height="2">
-								<position x="120" y="215"/>
+								<position x="123" y="314"/>
 								<connectionPointIn>
 									<relPosition x="0" y="1"/>
 									<connection refLocalId="49" formalParameter="udtHoldingRegisters"/>
@@ -969,7 +969,7 @@
 								<expression>udtHoldingRegisters</expression>
 							</outVariable>
 							<outVariable localId="122" width="17" height="2">
-								<position x="120" y="219"/>
+								<position x="123" y="318"/>
 								<connectionPointIn>
 									<relPosition x="0" y="1"/>
 									<connection refLocalId="49" formalParameter="udtInputRegisters"/>
@@ -977,7 +977,7 @@
 								<expression>udtInputRegisters</expression>
 							</outVariable>
 							<outVariable localId="123" width="14" height="2">
-								<position x="120" y="223"/>
+								<position x="123" y="322"/>
 								<connectionPointIn>
 									<relPosition x="0" y="1"/>
 									<connection refLocalId="49" formalParameter="udtOutputBits"/>
@@ -985,7 +985,7 @@
 								<expression>udtOutputBits</expression>
 							</outVariable>
 							<outVariable localId="124" width="13" height="2">
-								<position x="120" y="227"/>
+								<position x="123" y="326"/>
 								<connectionPointIn>
 									<relPosition x="0" y="1"/>
 									<connection refLocalId="49" formalParameter="udtInputBits"/>
@@ -993,7 +993,7 @@
 								<expression>udtInputBits</expression>
 							</outVariable>
 							<outVariable localId="125" width="20" height="2">
-								<position x="120" y="231"/>
+								<position x="123" y="330"/>
 								<connectionPointIn>
 									<relPosition x="0" y="1"/>
 									<connection refLocalId="49" formalParameter="arrInputAddress"/>
@@ -1001,7 +1001,7 @@
 								<expression>arrInputAddressSlave</expression>
 							</outVariable>
 							<outVariable localId="126" width="22" height="2">
-								<position x="120" y="235"/>
+								<position x="123" y="334"/>
 								<connectionPointIn>
 									<relPosition x="0" y="1"/>
 									<connection refLocalId="49" formalParameter="arrOutputAddress"/>
@@ -1033,7 +1033,7 @@
 								<expression>arrOutputAddressMaster</expression>
 							</outVariable>
 							<outVariable localId="130" width="22" height="2">
-								<position x="120" y="303"/>
+								<position x="120" y="215"/>
 								<connectionPointIn>
 									<relPosition x="0" y="1"/>
 									<connection refLocalId="74" formalParameter="arrOutputAddress"/>
@@ -1041,7 +1041,7 @@
 								<expression>arrInputAddressMaster</expression>
 							</outVariable>
 							<outVariable localId="131" width="23" height="2">
-								<position x="120" y="299"/>
+								<position x="120" y="211"/>
 								<connectionPointIn>
 									<relPosition x="0" y="1"/>
 									<connection refLocalId="74" formalParameter="arrInputAddress"/>
@@ -1049,7 +1049,7 @@
 								<expression>arrOutputAddressMaster</expression>
 							</outVariable>
 							<outVariable localId="132" width="14" height="2">
-								<position x="120" y="295"/>
+								<position x="120" y="207"/>
 								<connectionPointIn>
 									<relPosition x="0" y="1"/>
 									<connection refLocalId="74" formalParameter="udtRS485Line"/>
@@ -1057,7 +1057,7 @@
 								<expression>udtRS485Line</expression>
 							</outVariable>
 							<outVariable localId="133" width="20" height="2">
-								<position x="120" y="330"/>
+								<position x="120" y="245"/>
 								<connectionPointIn>
 									<relPosition x="0" y="1"/>
 									<connection refLocalId="81" formalParameter="arrOutputAddress"/>
@@ -1065,7 +1065,7 @@
 								<expression>arrInputAddressSlave</expression>
 							</outVariable>
 							<outVariable localId="134" width="22" height="2">
-								<position x="120" y="326"/>
+								<position x="120" y="241"/>
 								<connectionPointIn>
 									<relPosition x="0" y="1"/>
 									<connection refLocalId="81" formalParameter="arrInputAddress"/>
@@ -1073,7 +1073,7 @@
 								<expression>arrOutputAddressSlave</expression>
 							</outVariable>
 							<outVariable localId="135" width="14" height="2">
-								<position x="120" y="322"/>
+								<position x="120" y="237"/>
 								<connectionPointIn>
 									<relPosition x="0" y="1"/>
 									<connection refLocalId="81" formalParameter="udtRS485Line"/>
@@ -1137,7 +1137,7 @@
 								<position x="112" y="35"/>
 								<connectionPointIn>
 									<relPosition x="0" y="1"/>
-									<connection refLocalId="159" formalParameter="udtMbData">
+									<connection refLocalId="157" formalParameter="udtMbData">
 										<position x="112" y="36" pathnode="false"/>
 										<position x="105" y="36" pathnode="false"/>
 									</connection>
@@ -1145,26 +1145,23 @@
 								<expression>udtMbDataMaster</expression>
 							</outVariable>
 							<outVariable localId="144" width="21" height="2">
-								<position x="120" y="247"/>
+								<position x="124" y="348"/>
 								<connectionPointIn>
 									<relPosition x="0" y="1"/>
 									<connection refLocalId="147" formalParameter="INT_TO_WORD">
-										<position x="120" y="248" pathnode="false"/>
-										<position x="106" y="248" pathnode="false"/>
+										<position x="124" y="349" pathnode="false"/>
+										<position x="103" y="349" pathnode="false"/>
 									</connection>
 								</connectionPointIn>
 								<expression>udtHoldingRegisters[1]</expression>
 							</outVariable>
 							<block width="15" height="8" typeName="INT_TO_WORD" localId="147">
-								<position x="89" y="244"/>
+								<position x="86" y="345"/>
 								<inputVariables>
 									<variable formalParameter="IN1" hidden="true" dataType="INT" hideable="true">
 										<connectionPointIn>
 											<relPosition x="-2" y="4"/>
-											<connection refLocalId="149">
-												<position x="87" y="248" pathnode="false"/>
-												<position x="80" y="248" pathnode="false"/>
-											</connection>
+											<connection refLocalId="148"/>
 										</connectionPointIn>
 									</variable>
 								</inputVariables>
@@ -1177,14 +1174,14 @@
 									</variable>
 								</outputVariables>
 							</block>
-							<inVariable localId="149" width="16" height="2">
-								<position x="64" y="247"/>
+							<inVariable localId="148" width="16" height="2">
+								<position x="68" y="348"/>
 								<connectionPointOut>
 									<relPosition x="16" y="1"/>
 								</connectionPointOut>
 								<expression>RTC_SECONDS</expression>
 							</inVariable>
-							<block width="21" height="24" typeName="ModbusRTUGateway" instanceName="ModbusRTUGateway" localId="159">
+							<block width="21" height="24" typeName="ModbusRTUGateway" instanceName="ModbusRTUGateway" localId="157">
 								<position x="82" y="16"/>
 								<inputVariables>
 									<variable formalParameter="xActivate" dataType="BOOL" invertable="true" hideable="true">
@@ -1234,6 +1231,38 @@
 									</variable>
 								</outputVariables>
 							</block>
+							<comment localId="159" width="64" height="6">
+								<position x="81" y="6"/>
+								<content>
+									<html xmlns="http://www.w3.org/1999/xhtml">
+										<p xml:space="preserve" style="color:#000000;background:#FFFFFF;font-weight:normal;font-style:normal;normal;font-family:Tahoma;width:0px; height:226px; font-size:13.50em" xmlns="http://www.w3.org/1999/xhtml">Gateway function block transmits requests from Modbus TCP client to <br/>MB_Master function block using udtMbData structure</p>
+									</html>
+								</content>
+							</comment>
+							<comment localId="160" width="46" height="3">
+								<position x="85" y="187"/>
+								<content>
+									<html xmlns="http://www.w3.org/1999/xhtml">
+										<p xml:space="preserve" style="color:#000000;background:#FFFFFF;font-weight:normal;font-style:normal;normal;font-family:Tahoma;width:0px; height:226px; font-size:13.50em" xmlns="http://www.w3.org/1999/xhtml">IB IL RS UNI Master/Slave software replacement</p>
+									</html>
+								</content>
+							</comment>
+							<comment localId="161" width="54" height="6">
+								<position x="83" y="53"/>
+								<content>
+									<html xmlns="http://www.w3.org/1999/xhtml">
+										<p xml:space="preserve" style="color:#000000;background:#FFFFFF;font-weight:normal;font-style:normal;normal;font-family:Tahoma;width:0px; height:226px; font-size:13.50em" xmlns="http://www.w3.org/1999/xhtml">MB_Master function block sends request to serial interface <br/>(or software replacement for serial interface)</p>
+									</html>
+								</content>
+							</comment>
+							<comment localId="162" width="58" height="6">
+								<position x="85" y="263"/>
+								<content>
+									<html xmlns="http://www.w3.org/1999/xhtml">
+										<p xml:space="preserve" style="color:#000000;background:#FFFFFF;font-weight:normal;font-style:normal;normal;font-family:Tahoma;width:0px; height:226px; font-size:13.50em" xmlns="http://www.w3.org/1999/xhtml">MB_Slave function block receieves requests from serial interface <br/>(or software replacement for serial interface)</p>
+									</html>
+								</content>
+							</comment>
 						</worksheet>
 					</FBD>
 				</body>
